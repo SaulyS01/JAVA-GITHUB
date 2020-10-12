@@ -2,9 +2,10 @@ package entities;
 
 public class Person {
     int id;
+    int age;
     String name;
     String sex;
-    int age;
+    String country;
 
     public int getId() {
         return id;
@@ -36,5 +37,13 @@ public class Person {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 }

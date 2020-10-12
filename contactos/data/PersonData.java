@@ -1,7 +1,6 @@
 package data;
 
 import entities.Person;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,15 +11,16 @@ import java.util.List;
 public class PersonData {
     Connection cn = ConnectionBD.connectSQLite();
     public void create(Person person) {
-        String sql = " INSERT INTO users(name, age) "
-                + " VALUES(?,?) ";
+        String sql = " INSERT INTO users(name, age, sex, country) "
+                + " VALUES(?, ?, ?, ?) ";
         int i = 0;
-        int rsId = 0;
         try {
             PreparedStatement ps = cn.prepareStatement(sql);
             ps.setString(++i, person.getName());
             ps.setInt(++i, person.getAge());
-            rsId = ps.executeUpdate();
+            ps.setString(++i, person.getSex());
+            ps.setString(++i, person.getCountry());
+            int rsId = ps.executeUpdate();
             System.out.println("rsId: " + rsId);
         } catch (Exception e) {
             System.out.println("Error" + e);
@@ -37,6 +37,8 @@ public class PersonData {
                 p.setId(rs.getInt("id"));
                 p.setName(rs.getString("name"));
                 p.setAge(rs.getInt("age"));
+                p.setSex(rs.getString("sex"));
+                p.setCountry(rs.getString("country"));
                 list.add(p);
             }
         } catch (Exception e) {
@@ -54,6 +56,8 @@ public class PersonData {
                 p.setId(rs.getInt("id"));
                 p.setName(rs.getString("name"));
                 p.setAge(rs.getInt("age"));
+                p.setSex(rs.getString("sex"));
+                p.setCountry(rs.getString("country"));
             }
         } catch (Exception e) {
             System.out.println("Error" + e);
@@ -63,30 +67,33 @@ public class PersonData {
     public void update(Person p) {
         String sql = " UPDATE users SET " +
                 "name = ?, " +
-                "age = ?" +
+                "age = ?, " +
+                "sex = ?, " +
+                "country = ? " +
                 "WHERE id = ? ";
         int i = 0;
-        int rsId = 0;
         try {
             PreparedStatement ps = cn.prepareStatement(sql);
             ps.setString(++i, p.getName());
             ps.setInt(++i, p.getAge());
+            ps.setString(++i, p.getSex());
+            ps.setString(++i, p.getCountry());
             ps.setInt(++i, p.getId());
-            rsId = ps.executeUpdate();
-            System.out.println("update.rsId: " + rsId);
+            int rsId = ps.executeUpdate();
+            if (rsId > 0) {
+                System.out.println("Successfully!");
+            }
         } catch (Exception e) {
             System.out.println("Error" + e);
         }
     }
     public void delete(int id) {
-        String sql = "DELETE FROM persons WHERE id = ?";
+        String sql = "DELETE FROM users WHERE id = ?";
         int res =0;
         try {
             PreparedStatement ps = cn.prepareStatement(sql);
             ps.setInt(1, id );
             res = ps.executeUpdate();
-            System.out.println("delete.res=" + res);
-
         } catch (Exception e) {
             System.out.println("Error " + e);
         }
