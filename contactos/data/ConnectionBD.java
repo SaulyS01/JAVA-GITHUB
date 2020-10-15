@@ -10,7 +10,7 @@ public class ConnectionBD {
         try {
             Class.forName("org.sqlite.JDBC");
             String dbURL = "jdbc:sqlite:ActBD001.db?foreign_keys=on;";
-            conn = DriverManager.getConnection(dbURL); 
+            conn = DriverManager.getConnection(dbURL);
             System.out.println("Are you connected\n");
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println("Error the connection" + e);

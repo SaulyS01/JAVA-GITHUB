@@ -11,8 +11,8 @@ import java.util.List;
 public class PersonData {
     Connection cn = ConnectionBD.connectSQLite();
     public void create(Person person) {
-        String sql = " INSERT INTO users(name, age, sex, country) "
-                + " VALUES(?, ?, ?, ?) ";
+        String sql = " INSERT INTO users(name, age, sex, country) " +
+                " VALUES(?, ?, ?, ?) ";
         int i = 0;
         try {
             PreparedStatement ps = cn.prepareStatement(sql);

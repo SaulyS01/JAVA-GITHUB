@@ -2,6 +2,9 @@ import data.PersonData;
 import entities.Person;
 import java.util.Scanner;
 
+//javac *.java
+    //java -classpath ".;sqlite-jdbc-3.30.1.jar" Main
+
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
